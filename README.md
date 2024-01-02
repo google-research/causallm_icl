@@ -1,4 +1,4 @@
-# PACTran Metrics
+# CausalLM ICL
 
 This is the code repository for the paper: CausalLM is not optimal for in-context learning (`https://arxiv.org/abs/2308.06912`).
 
@@ -18,20 +18,21 @@ This repository currently contain the code for Sec 5.1 the LSA-transformers on l
   - Scipy
 
 - For the LSA-transformers, run
-python theory_plots.py
+
+python -m theory_plots.py
 
 - For the ordinary softmax transformers, run
 
-exp_folder=       # experiment output location
-use_enc_mask=     # True: prefixLM, False: CausalLM
-num_classes=      # 1: regression, >1: classification
-output_map=       # 'linear' for linear regression or classification, 'sigmoid' for non-linear regression
-shared_block=     # True: Shared-block transformer, False: not sharing layers
+exp_folder=       # experiment output location \
+use_enc_mask=     # True: prefixLM, False: CausalLM \
+num_classes=      # 1: regression, >1: classification \
+output_map=       # 'linear' for linear regression or classification, 'sigmoid' for non-linear regression \
+shared_block=     # True: Shared-block transformer, False: not sharing layers \
 num_exemplars=    # number of training examples + testing examples (default testing 20) in each sequence
 
-# The complete set of flags are listed in main.py, model_trainer.py, transformer_lib_flax.py
+(The complete set of flags are listed in main.py, model_trainer.py, transformer_lib_flax.py)
 
-python main.py -- \
+python -m main.py -- \
 --exp_folder ${exp_folder} \
 --use_enc_mask ${use_enc_mask} \
 --num_clases ${num_classes} \
