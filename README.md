@@ -2,6 +2,8 @@
 
 This is the code repository for the paper: CausalLM is not optimal for in-context learning (`https://arxiv.org/abs/2308.06912`).
 
+Disclaimer: This is not an officially supported Google product.
+
 ## Introduction
 
 Recent empirical evidence indicates that transformer based in-context learning performs better when using a prefix language model (prefixLM), in which in-context samples can all attend to each other, compared to causal language models (causalLM), which use auto-regressive attention that prohibits in-context samples to attend to future samples. While this result is intuitive, it is not understood from a theoretical perspective. In this paper we take a theoretical approach and analyze the convergence behavior of prefixLM and causalLM under a certain parameter construction. Our analysis shows that both LM types converge to their stationary points at a linear rate, but that while prefixLM converges to the optimal solution of linear regression, causalLM convergence dynamics follows that of an online gradient descent algorithm, which is not guaranteed to be optimal even as the number of samples grows infinitely. We supplement our theoretical claims with empirical experiments over synthetic and real tasks and using various types of transformers. Our experiments verify that causalLM consistently underperforms prefixLM in all settings.
@@ -16,10 +18,11 @@ This repository currently contain the code for Sec 5.1 the LSA-transformers on l
   - Flax
   - Numpy
   - Scipy
+  - sklearn
 
 - For the LSA-transformers, run
 
-python -m theory_plots.py
+python -m causallm_icl.theory_plots
 
 - For the ordinary softmax transformers, run
 
@@ -32,7 +35,7 @@ num_exemplars=    # number of training examples + testing examples (default test
 
 (The complete set of flags are listed in main.py, model_trainer.py, transformer_lib_flax.py)
 
-python -m main.py -- \
+python -m causallm_icl.main -- \
 --exp_folder ${exp_folder} \
 --use_enc_mask ${use_enc_mask} \
 --num_clases ${num_classes} \
