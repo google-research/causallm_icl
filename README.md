@@ -10,7 +10,7 @@ Recent empirical evidence indicates that transformer based in-context learning p
 
 ## How to use
 
-This repository currently contain the code for Sec 5.1 the LSA-transformers on linear regression problems, and Sec 5.2 ordinary softmax transformers on synthetic problems.
+This repository contains the code for Sec 5.1 the LSA-transformers on linear regression problems, and Sec 5.2 ordinary softmax transformers on synthetic problems. It also contains the model gin files and finetuned-checkpoint locations of the t5x decoder_only models for Sec 5.3.
 
 - Prerequisites:
   - Tensorflow
@@ -20,11 +20,11 @@ This repository currently contain the code for Sec 5.1 the LSA-transformers on l
   - Scipy
   - sklearn
 
-- For the LSA-transformers, run
+- For the LSA-transformers (Sec 5.1), run
 
 python -m causallm_icl.theory_plots
 
-- For the ordinary softmax transformers, run
+- For the ordinary softmax transformers (Sec 5.2), run
 
 exp_folder=       # experiment output location \
 use_enc_mask=     # True: prefixLM, False: CausalLM \
@@ -42,3 +42,16 @@ python -m causallm_icl.main -- \
 --output_map ${output_map} \
 --shared_block ${shared_block} \
 --num_exemplars ${num_exemplars}
+
+- For the t5x decoder_only models (Sec 5.3), please refer to https://github.com/google-research/t5x on how to launch.
+
+The architecture gin files of our models are available in the gins/ subdirectory. We pretrained each model on the C4 data for 1M steps and then finetuned them on FLAN. Their checkpoints are available in:
+
+gs://gresearch/causallm_icl/flan_t5dec_base \
+gs://gresearch/causallm_icl/flan_t5decplm_base \
+gs://gresearch/causallm_icl/flan_t5dec_large \
+gs://gresearch/causallm_icl/flan_t5decplm_large \
+gs://gresearch/causallm_icl/flan_t5dec_xl \
+gs://gresearch/causallm_icl/flan_t5decplm_xl
+
+To switch between prefixLM and causalLM attention, set the gin variable PREFIX_ATTN=True/False.
